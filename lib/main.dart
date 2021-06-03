@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:welcome/Mobx/infoStore.dart';
+import 'package:welcome/Mobx/userStore.dart';
+import 'package:welcome/Screens/Starting/start.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      Provider<UserStore>(
+        create: (_) => UserStore(),
+      ),
+      Provider<InfoStore>(
+        create: (_) => InfoStore(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,7 +38,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: AddUser(),
+      home: GetStart(),
     );
   }
 }
